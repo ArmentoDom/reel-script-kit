@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "corpus",
+  "description": "A structured analysis of the reels you saved because you admired them. This is your taste, made machine-readable. It describes OTHER people's work - what you can learn from it - and never your own claims (those live in voice.json).",
+  "type": "object",
+  "required": ["corpus_version", "built_at", "reels", "aggregate", "engines", "shared_grammar", "visual_modes", "synthesis"],
+  "properties": {
+    "corpus_version": { "type": "number", "minimum": 1 },
+    "built_at": { "type": "string" },
+    "method": {
+      "type": "string",
+      "enum": ["local_cli", "chatgpt_browser", "manual"],
+      "description": "How this corpus was produced. Recorded so a later rebuild can be compared like-for-like."
+    },
+    "sources": {
+      "type": "array",
+      "description": "The creators you pulled from. Two or three contrasting creators beats one, because the contrast is what tells you which parts are style and which are structure.",
+      "items": {
+        "type": "object",
+        "required": ["creator", "reel_count"],
+        "properties": {
+          "creator": { "type": "string" },
+          "handle": { "type": "string" },
+          "reel_count": { "type": "number", "minimum": 1 },
+          "why_saved": { "type": "string", "description": "In your own words, what made you save these. Written before analysis, so the analysis cannot rationalize itself." }
+        }
+      }
+    },
+    "reels": {
+      "type": "array",
+      "minItems": 5,
+      "description": "One entry per analyzed reel. Fewer than about 10 and the aggregate numbers are noise rather than a pattern.",
+      "items": {
+        "type": "object",
+        "required": ["id", "creator", "topic", "content_structure", "dominant_visual_behavior", "lesson"],
+        "properties": {
+          "id": { "type": "string" },
+          "creator": { "type": "string" },
+          "url": { "type": "string" },
+          "local_file": { "type": "string" },
+          "duration_sec": { "type": "number" },
+          "word_count": { "type": "number" },
+          "wpm": { "type": "number" },
+          "scene_count": { "type": "number", "description": "Detected hard cuts or large compositional changes. Undercounts micro-motion, caption changes and progressive reveals - treat as a floor, not a total." },
+          "avg_scene_sec": { "type": "number" },
+          "topic": { "type": "string" },
+          "content_structure": {
+            "type": "array",
+            "minItems": 2,
+            "items": { "type": "string" },
+            "description": "The beat sequence, in order, in plain language. e.g. ['problem hook','named mechanism','three examples','contrarian turn','resource CTA']"
+          },
+          "dominant_visual_behavior": { "type": "string" },
+          "hook_type": { "type": "string" },
+          "cta_type": { "type": "string" },
+          "lesson": { "type": "string", "minLength": 10, "description": "The single transferable lesson. If you cannot state it without naming the creator's specific topic, you have described the skin rather than the grammar." }
+        }
+      }
+    },
+    "aggregate": {
+      "type": "object",
+      "required": ["total_runtime_sec", "weighted_wpm"],
+      "properties": {
+        "total_runtime_sec": { "type": "number" },
+        "median_duration_sec": { "type": "number" },
+        "weighted_wpm": { "type": "number" },
+        "avg_scene_sec": { "type": "number" },
+        "per_creator": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["creator"],
+            "properties": {
+              "creator": { "type": "string" },
+              "videos": { "type": "number" },
+              "total_runtime_sec": { "type": "number" },
+              "median_duration_sec": { "type": "number" },
+              "weighted_wpm": { "type": "number" },
+              "avg_scene_sec": { "type": "number" }
+            }
+          },
+          "description": "Kept per-creator on purpose. Averaging two creators with different pacing into one house number destroys the thing that made each of them work."
+        }
+      }
+    },
+    "engines": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The repeatable content engine behind each creator, plus an honest note on what breaks if you copy it wholesale.",
+      "items": {
+        "type": "object",
+        "required": ["creator", "steps", "strength", "risk_if_copied_wholesale"],
+        "properties": {
+          "creator": { "type": "string" },
+          "steps": { "type": "array", "minItems": 3, "items": { "type": "string" } },
+          "strength": { "type": "string" },
+          "risk_if_copied_wholesale": { "type": "string", "minLength": 10 }
+        }
+      }
+    },
+    "shared_grammar": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string" },
+      "description": "What every analyzed reel does regardless of creator. These are the closest thing to laws in the corpus."
+    },
+    "differences": {
+      "type": "array",
+      "description": "Where the creators diverge, and which side you should take.",
+      "items": {
+        "type": "object",
+        "required": ["dimension", "positions", "what_i_take"],
+        "properties": {
+          "dimension": { "type": "string" },
+          "positions": { "type": "array", "items": { "type": "string" } },
+          "what_i_take": { "type": "string" }
+        }
+      }
+    },
+    "visual_modes": {
+      "type": "array",
+      "minItems": 3,
+      "description": "The small set of presentation modes the corpus actually uses. Videos feel varied because modes are sequenced differently, not because every sentence gets a new design.",
+      "items": {
+        "type": "object",
+        "required": ["key", "composition", "use_for", "avoid_for"],
+        "properties": {
+          "key": { "type": "string", "description": "SCREAMING_SNAKE handle, e.g. FACE_CLOSE" },
+          "composition": { "type": "string" },
+          "use_for": { "type": "string" },
+          "avoid_for": { "type": "string" }
+        }
+      }
+    },
+    "mode_selection_rules": {
+      "type": "array",
+      "description": "Spoken beat -> default mode. The lookup table that stops visual choice from being re-litigated on every line.",
+      "items": {
+        "type": "object",
+        "required": ["spoken_beat", "default_mode"],
+        "properties": {
+          "spoken_beat": { "type": "string" },
+          "default_mode": { "type": "string" }
+        }
+      }
+    },
+    "pacing_targets": {
+      "type": "object",
+      "description": "Starting guardrails derived from the measured numbers above, not laws.",
+      "properties": {
+        "delivery_wpm_range": { "type": "array", "items": { "type": "number" }, "minItems": 2 },
+        "hook_legible_by_sec": { "type": "number" },
+        "composition_change_sec": { "type": "array", "items": { "type": "number" }, "minItems": 2 },
+        "micro_change_sec": { "type": "array", "items": { "type": "number" }, "minItems": 2 },
+        "face_reset_rule": { "type": "string" }
+      }
+    },
+    "typography_hierarchy": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "The distinct text roles observed. Collapsing these into one caption component is a known failure mode."
+    },
+    "motion_hierarchy": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Ordered from most to least meaningful. Motion below the comprehension line is decoration."
+    },
+    "anti_patterns": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Things the corpus shows you should NOT do. Often more useful than the positive rules."
+    },
+    "synthesis": {
+      "type": "object",
+      "required": ["positioning_statement", "script_formula"],
+      "description": "The point of the whole exercise: not to imitate any one creator, but to name the combination you are actually going for.",
+      "properties": {
+        "positioning_statement": { "type": "string", "minLength": 20 },
+        "borrowed_from": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["creator", "what"],
+            "properties": {
+              "creator": { "type": "string" },
+              "what": { "type": "string" },
+              "explicitly_not": { "type": "string", "description": "What you are deliberately leaving behind from this creator." }
+            }
+          }
+        },
+        "script_formula": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "type": "string" },
+          "description": "Your default beat sequence, derived from the engines above. The script agent starts here and departs from it deliberately, not accidentally."
+        }
+      }
+    }
+  }
+}

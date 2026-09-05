@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "voice",
+  "description": "Who you are, what you can actually prove, and how you are allowed to sound. This is the half of taste that a reference corpus can never supply.",
+  "type": "object",
+  "required": ["owner", "positioning", "proof", "audience", "voice_rules", "constraints"],
+  "properties": {
+    "owner": {
+      "type": "object",
+      "required": ["name", "one_liner"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "handle": { "type": "string" },
+        "one_liner": {
+          "type": "string",
+          "minLength": 10,
+          "description": "One sentence a stranger could read to know why you specifically are worth listening to."
+        }
+      }
+    },
+    "positioning": {
+      "type": "object",
+      "required": ["intersection", "should_feel_like", "should_not_become"],
+      "properties": {
+        "intersection": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "type": "string" },
+          "description": "The 2-4 things you sit at the intersection of. Two is too broad to be a position; five is a personality, not a channel."
+        },
+        "should_feel_like": {
+          "type": "string",
+          "minLength": 20,
+          "description": "One sentence describing how the account should feel to a stranger."
+        },
+        "should_not_become": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" },
+          "description": "The nearby accounts you would hate to be mistaken for. Negative space defines a position faster than positive claims."
+        }
+      }
+    },
+    "proof": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Everything you can actually back up. The script agent may only make claims that trace to an entry here.",
+      "items": {
+        "type": "object",
+        "required": ["claim", "evidence_type", "verified"],
+        "properties": {
+          "claim": { "type": "string", "minLength": 1 },
+          "evidence_type": {
+            "type": "string",
+            "enum": ["screenshot", "screen_recording", "live_url", "repo", "analytics", "revenue", "ranking", "credential", "testimonial", "physical_artifact", "none_yet"]
+          },
+          "evidence_location": { "type": "string", "description": "Path or URL to the evidence, if it exists yet." },
+          "verified": { "type": "boolean", "description": "True only if you have personally confirmed this is accurate and current." },
+          "expires": { "type": "string", "description": "ISO date after which this claim needs rechecking. Rankings and revenue go stale." }
+        }
+      }
+    },
+    "audience": {
+      "type": "object",
+      "required": ["who", "what_they_want"],
+      "properties": {
+        "who": { "type": "string", "minLength": 5 },
+        "what_they_want": { "type": "string", "minLength": 5 },
+        "what_they_already_know": {
+          "type": "string",
+          "description": "Sets the floor for how much you explain. Getting this wrong is the most common reason a good script is boring."
+        }
+      }
+    },
+    "voice_rules": {
+      "type": "object",
+      "required": ["never_say"],
+      "properties": {
+        "say": { "type": "array", "items": { "type": "string" }, "description": "Words, phrasings and rhythms that sound like you." },
+        "never_say": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" },
+          "description": "Hard bans. Filler, guru-isms, and any phrasing borrowed from a reference creator."
+        },
+        "profanity": { "type": "string", "enum": ["none", "mild", "unrestricted"], "default": "none" },
+        "humor": { "type": "string", "enum": ["none", "dry", "playful", "sarcastic"], "default": "dry" },
+        "person": { "type": "string", "enum": ["first", "second", "mixed"], "default": "mixed" }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "required": ["target_wpm", "typical_runtime_sec"],
+      "properties": {
+        "target_wpm": { "type": "number", "minimum": 150, "maximum": 300 },
+        "typical_runtime_sec": { "type": "number", "minimum": 10, "maximum": 600 },
+        "cta_style": { "type": "string", "enum": ["comment_keyword", "follow", "link_in_bio", "soft_positioning", "none"] },
+        "resource_offer": { "type": "string", "description": "The one thing a comment keyword actually delivers. Leave empty if you have nothing to give yet - a CTA promising a resource you do not have is the fastest way to lose a new audience." }
+      }
+    },
+    "banned_claims": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Things that are true-ish but you have decided not to say. Legal, employer, NDA, or taste reasons."
+    },
+    "used_hooks": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Every hook you have already published. The script agent treats a repeat as a hard failure. Appended automatically as you ship."
+    },
+    "used_ctas": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Every CTA phrasing already used. Same rule."
+    }
+  }
+}

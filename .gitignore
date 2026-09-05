@@ -1,0 +1,22 @@
+# Downloaded reels and everything derived from them.
+# These are other people's copyrighted videos, pulled locally so you can study
+# them. They stay on your machine - never commit or publish them, not even to a
+# private repo. Your analysis (corpus.json / corpus.md) is yours and is tracked.
+corpus/raw/**
+!corpus/raw/.gitkeep
+corpus/frames/**
+!corpus/frames/.gitkeep
+*.mp4
+*.mov
+*.m4a
+*.wav
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Local-only overrides
+.claude/settings.local.json

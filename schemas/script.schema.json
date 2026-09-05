@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "script",
+  "description": "Output of the reel-script agent. Words only - no visual, camera, graphic or timing direction lives here.",
+  "type": "object",
+  "required": ["video_slug", "hook", "sections", "estimated_runtime_seconds", "target_wpm", "takeaway"],
+  "properties": {
+    "video_slug": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string" },
+    "hook": { "type": "string", "minLength": 1, "description": "The locked opening line(s)." },
+    "takeaway": {
+      "type": "string",
+      "minLength": 10,
+      "description": "The one thing a viewer can now do that they could not before. If you cannot write this sentence, the script has no reason to exist."
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["purpose", "text"],
+        "properties": {
+          "purpose": {
+            "type": "string",
+            "enum": ["hook", "lock-in", "proof", "mechanism", "example", "re-hook", "nuance", "payoff", "personal-take", "cta"]
+          },
+          "text": { "type": "string", "minLength": 1 },
+          "proof_needed": {
+            "type": "string",
+            "description": "Plain-language description of the evidence this section's claim needs. Empty if none."
+          },
+          "proof_ref": {
+            "type": "string",
+            "description": "The voice.json proof[].claim this section leans on. Every factual claim must trace to one, or carry needs_verification."
+          },
+          "needs_verification": { "type": "boolean", "default": false }
+        }
+      }
+    },
+    "estimated_runtime_seconds": { "type": "number", "minimum": 5 },
+    "target_wpm": { "type": "number", "minimum": 150, "maximum": 300 },
+    "corpus_lean": {
+      "type": "string",
+      "description": "Which analyzed engine's structural grammar this script leans on, and why this idea suits it."
+    },
+    "self_check": {
+      "type": "object",
+      "description": "The agent's own audit, written before it hands the script over. Present so failures are visible rather than silent.",
+      "properties": {
+        "hook_is_novel": { "type": "boolean", "description": "Checked against voice.used_hooks and every prior script in projects/." },
+        "cta_is_novel": { "type": "boolean" },
+        "all_claims_traceable": { "type": "boolean" },
+        "banned_claims_clear": { "type": "boolean" },
+        "has_nuance_beat": { "type": "boolean" },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

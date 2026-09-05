@@ -1,0 +1,205 @@
+{
+  "corpus_version": 1,
+  "built_at": "2025-01-15",
+  "method": "local_cli",
+  "_note": "FICTIONAL EXAMPLE. Invented creators, invented numbers, a deliberately unrelated niche (woodworking). It exists to show the SHAPE of a finished corpus. Do not copy its conclusions - yours must come from reels you actually chose.",
+  "sources": [
+    {
+      "creator": "Mara Quill",
+      "handle": "@maraquill",
+      "reel_count": 9,
+      "why_saved": "She makes a jig look inevitable. Thirty seconds and I always know exactly what to do on Saturday."
+    },
+    {
+      "creator": "Theo Bright",
+      "handle": "@theobuilds",
+      "reel_count": 8,
+      "why_saved": "He explains WHY a joint fails. I never skip one even when they run two minutes."
+    }
+  ],
+  "reels": [
+    {
+      "id": "mq_01", "creator": "Mara Quill", "url": "https://example.com/reel/mq01",
+      "duration_sec": 31, "word_count": 122, "wpm": 236, "scene_count": 14, "avg_scene_sec": 2.21,
+      "topic": "Five-dollar shop-made marking gauge",
+      "content_structure": ["cost objection hook", "finished tool shown working", "three-step build", "accuracy proof against a store gauge", "comment keyword CTA"],
+      "dominant_visual_behavior": "Overhead bench shots, hands always in frame, one held close-up on the scribe line",
+      "hook_type": "Price objection against a tool the viewer already wants",
+      "cta_type": "Comment keyword for the cut list",
+      "lesson": "A cost claim needs a side-by-side against the thing it replaces, in the same shot, or it reads as a boast."
+    },
+    {
+      "id": "mq_02", "creator": "Mara Quill", "url": "https://example.com/reel/mq02",
+      "duration_sec": 28, "word_count": 108, "wpm": 231, "scene_count": 13, "avg_scene_sec": 2.15,
+      "topic": "Squaring a cabinet without a large square",
+      "content_structure": ["problem hook", "the diagonal measurement trick", "two demonstrations", "failure case", "CTA"],
+      "dominant_visual_behavior": "Tape-measure close-ups with the numbers legible; brief face only at the failure case",
+      "hook_type": "A problem the viewer has already had this week",
+      "cta_type": "Comment keyword",
+      "lesson": "Show the failure case on camera - the technique becomes trustworthy precisely because its limit is visible."
+    },
+    {
+      "id": "mq_03", "creator": "Mara Quill", "url": "https://example.com/reel/mq03",
+      "duration_sec": 36, "word_count": 141, "wpm": 235, "scene_count": 16, "avg_scene_sec": 2.25,
+      "topic": "Four clamps that are worth the money",
+      "content_structure": ["warning hook", "four-item list", "one proof shot each", "price band", "CTA"],
+      "dominant_visual_behavior": "Near-continuous product cards, each with a distinct proof shot; face closes only",
+      "hook_type": "Warning framing on a purchase decision",
+      "cta_type": "Comment keyword for the list",
+      "lesson": "A list can move very fast so long as every single item gets its own visually distinct proof."
+    },
+    {
+      "id": "mq_04", "creator": "Mara Quill", "url": "https://example.com/reel/mq04",
+      "duration_sec": 33, "word_count": 129, "wpm": 234, "scene_count": 15, "avg_scene_sec": 2.20,
+      "topic": "Sharpening a chisel on sandpaper",
+      "content_structure": ["cost objection", "the method", "shaving end-grain proof", "when it is not enough", "CTA"],
+      "dominant_visual_behavior": "Macro edge shots; the end-grain shaving is held nearly four seconds",
+      "hook_type": "Replacing an expensive purchase with something already owned",
+      "cta_type": "Comment keyword",
+      "lesson": "Hold the proof shot far longer than feels comfortable - proof is the one thing you must never cut away from early."
+    },
+    {
+      "id": "tb_01", "creator": "Theo Bright", "url": "https://example.com/reel/tb01",
+      "duration_sec": 94, "word_count": 358, "wpm": 229, "scene_count": 23, "avg_scene_sec": 4.09,
+      "topic": "Why mortise-and-tenon joints fail",
+      "content_structure": ["large outcome promise", "named mechanism: the three failure modes", "section map", "each mode defined and demonstrated", "seasonal-movement metaphor", "contrarian turn on glue", "deeper resource CTA"],
+      "dominant_visual_behavior": "One persistent cutaway diagram of a joint; components highlight in narration order; presenter inset stays visible throughout",
+      "hook_type": "Extreme outcome plus a named framework",
+      "cta_type": "Deeper guide, positioned as implementation help",
+      "lesson": "One persistent diagram that accumulates beats a sequence of unrelated slides - the viewer never loses their place."
+    },
+    {
+      "id": "tb_02", "creator": "Theo Bright", "url": "https://example.com/reel/tb02",
+      "duration_sec": 118, "word_count": 449, "wpm": 228, "scene_count": 29, "avg_scene_sec": 4.07,
+      "topic": "The wood movement ladder",
+      "content_structure": ["six-level promise", "level-by-level escalation", "mastery layer", "framework value", "CTA"],
+      "dominant_visual_behavior": "Persistent ladder canvas; the current rung is always highlighted so progress stays visible",
+      "hook_type": "Numbered levels that give a reason to stay",
+      "cta_type": "Deeper resource",
+      "lesson": "Long educational content stays coherent when the viewer can always see where they are and how much is left."
+    },
+    {
+      "id": "tb_03", "creator": "Theo Bright", "url": "https://example.com/reel/tb03",
+      "duration_sec": 76, "word_count": 289, "wpm": 228, "scene_count": 19, "avg_scene_sec": 4.00,
+      "topic": "Finishing schedule that survives a humid house",
+      "content_structure": ["failure people recognize", "cause explained", "the schedule", "before/after comparison", "CTA"],
+      "dominant_visual_behavior": "Split-frame before/after held long; diagram of coats accumulating",
+      "hook_type": "A failure the viewer has personally experienced",
+      "cta_type": "Deeper guide",
+      "lesson": "If the insight is about change over time, one evolving visual beats a series of separate ones."
+    },
+    {
+      "id": "tb_04", "creator": "Theo Bright", "url": "https://example.com/reel/tb04",
+      "duration_sec": 88, "word_count": 336, "wpm": 229, "scene_count": 22, "avg_scene_sec": 4.00,
+      "topic": "Reading grain direction before you plane",
+      "content_structure": ["retention problem framing", "visual alignment principle", "tearout example", "counter-example", "CTA"],
+      "dominant_visual_behavior": "Macro grain footage synchronized to each spoken noun; presenter returns at the counter-example",
+      "hook_type": "Naming a mistake the viewer makes without knowing it",
+      "cta_type": "Deeper resource",
+      "lesson": "Demonstrate the principle with synchronized evidence instead of only asserting it."
+    }
+  ],
+  "aggregate": {
+    "total_runtime_sec": 504,
+    "median_duration_sec": 64.5,
+    "weighted_wpm": 231,
+    "avg_scene_sec": 3.12,
+    "per_creator": [
+      { "creator": "Mara Quill", "videos": 4, "total_runtime_sec": 128, "median_duration_sec": 32, "weighted_wpm": 234, "avg_scene_sec": 2.20 },
+      { "creator": "Theo Bright", "videos": 4, "total_runtime_sec": 376, "median_duration_sec": 91, "weighted_wpm": 228, "avg_scene_sec": 4.04 }
+    ]
+  },
+  "engines": [
+    {
+      "creator": "Mara Quill",
+      "steps": ["immediate-utility or cost hook", "show the finished result working", "compress the method to three steps", "prove it against the alternative", "comment-keyword CTA"],
+      "strength": "Speed and evidence density. Nothing is asserted that is not also shown.",
+      "risk_if_copied_wholesale": "Copied straight, this makes you a tool-tip account with no worldview. It never establishes that YOU have built anything - it only establishes that the technique works. An account of nothing but tips is replaceable by the next account with the same tips."
+    },
+    {
+      "creator": "Theo Bright",
+      "steps": ["large outcome or recognizable failure", "named mechanism", "section map", "progressive teaching", "metaphor", "contrarian turn", "deeper-resource CTA"],
+      "strength": "Owned intellectual property and genuine teaching authority.",
+      "risk_if_copied_wholesale": "The length and the certainty are only earned by having actually built the thing for years. Adopting the framework-naming voice before you have the results behind it reads as a guru performance, and viewers detect it faster than you expect."
+    }
+  ],
+  "shared_grammar": [
+    "The spoken line determines the visual - important nouns and claims get literal visual counterparts.",
+    "One primary idea per composition; the frame always has an obvious focal point.",
+    "Returning to the creator's face works as punctuation, marking sections rather than delivering information.",
+    "Proof appears next to the claim it supports, not collected at the end.",
+    "Captions are rhythm, and coexist with headings, labels and source text as separate systems.",
+    "Transitions are editorially motivated - hard cuts and mode changes, not generic wipes.",
+    "The hook is visually legible before the first sentence finishes.",
+    "The CTA is quieter than the body and asks for exactly one thing."
+  ],
+  "differences": [
+    { "dimension": "Typical length", "positions": ["Mara: 28-36s", "Theo: 76-118s"], "what_i_take": "Let the idea choose the length. A technique is short; a system that must be understood is long. Forcing one template onto both is why my early videos felt padded." },
+    { "dimension": "Pace of context change", "positions": ["Mara: ~2.2s", "Theo: ~4.0s"], "what_i_take": "Fast for proof sequences, slow for anything requiring comprehension. These are two different speeds for two different jobs, not one average." },
+    { "dimension": "Source of authority", "positions": ["Mara: the result on camera", "Theo: the explanatory framework"], "what_i_take": "Both. My own finished pieces as external proof, plus a named way of thinking that is mine." },
+    { "dimension": "Creator presence", "positions": ["Mara: hands only, face closes", "Theo: persistent presenter inset"], "what_i_take": "Hands during work, face for judgment calls and anything the viewer has to take my word for." }
+  ],
+  "visual_modes": [
+    { "key": "FACE_CLOSE", "composition": "Fullscreen talking head, controlled punch-ins", "use_for": "Hook, personal judgment, conviction, section reset, CTA", "avoid_for": "Multi-step instruction or long lists" },
+    { "key": "HANDS_WORK", "composition": "Overhead or close bench shot, hands in frame, no face", "use_for": "Any physical technique as it actually happens", "avoid_for": "Anything abstract, or a claim about outcomes" },
+    { "key": "PROOF_FULL", "composition": "Fullscreen result, comparison, or measurement with legible numbers", "use_for": "Named evidence, before/after, a claimed result", "avoid_for": "Generic stock or decorative footage" },
+    { "key": "SYSTEM_BUILD", "composition": "Persistent diagram where parts accumulate in narration order", "use_for": "Relationships, causes, failure modes, processes", "avoid_for": "A single fact with no relationships in it" },
+    { "key": "IMPACT_CARD", "composition": "One phrase or number, restrained animation", "use_for": "A reveal, a contrast, a section title, the payoff", "avoid_for": "Ordinary spoken captions or filler words" }
+  ],
+  "mode_selection_rules": [
+    { "spoken_beat": "Personal claim, opinion, or credibility", "default_mode": "FACE_CLOSE" },
+    { "spoken_beat": "A physical technique is performed", "default_mode": "HANDS_WORK" },
+    { "spoken_beat": "An exact number or result is claimed", "default_mode": "PROOF_FULL" },
+    { "spoken_beat": "Two or more components relate", "default_mode": "SYSTEM_BUILD" },
+    { "spoken_beat": "Contrarian reversal or payoff", "default_mode": "IMPACT_CARD, then FACE_CLOSE" },
+    { "spoken_beat": "Example after an abstract explanation", "default_mode": "PROOF_FULL" },
+    { "spoken_beat": "New major section", "default_mode": "Brief FACE_CLOSE reset" },
+    { "spoken_beat": "CTA", "default_mode": "FACE_CLOSE" }
+  ],
+  "pacing_targets": {
+    "delivery_wpm_range": [225, 240],
+    "hook_legible_by_sec": 1.5,
+    "composition_change_sec": [2, 4],
+    "micro_change_sec": [0.7, 1.8],
+    "face_reset_rule": "After a dense proof sequence, at any section change, and before a personal conclusion."
+  },
+  "typography_hierarchy": [
+    "Speech captions - short spoken chunks, bold sans, placed against the active composition",
+    "Emphasis captions - one operative word gets color, weight or scale",
+    "Scene headline - names the current concept, stays long enough to orient",
+    "Diagram labels - compact, attached spatially to the object",
+    "Editorial impact text - two to six words, composition scale, reveals only",
+    "Source text - preserved from the real artifact, or recreated faithfully for legibility"
+  ],
+  "motion_hierarchy": [
+    "Hard cut or punch-in for a change in argument",
+    "Mode switch for a change in information type",
+    "Progressive reveal for a process or relationship",
+    "Highlight or trace on the exact object being discussed",
+    "Micro-motion for polish, only after comprehension is already solved"
+  ],
+  "anti_patterns": [
+    "Carousels of floating panels that relate to nothing being said",
+    "Motion that begins before the narration has given the viewer a reason to watch it",
+    "Flashing a screenshot too briefly to read - zoom and hold instead",
+    "Collapsing every text role into one caption component",
+    "Illustrating symbolically when the real action could honestly be shown",
+    "A CTA promising a resource that does not exist yet"
+  ],
+  "synthesis": {
+    "positioning_statement": "Someone who actually builds furniture, showing the specific techniques, failures and judgment calls that make the work faster - with the finished piece always on camera as the proof.",
+    "borrowed_from": [
+      { "creator": "Mara Quill", "what": "Evidence density and the discipline of never asserting what can be shown", "explicitly_not": "The tip-account format with no worldview behind it" },
+      { "creator": "Theo Bright", "what": "Teaching structure - named mechanisms, section maps, progressive reveals", "explicitly_not": "The certainty and the length before I have the results to justify either" }
+    ],
+    "script_formula": [
+      "Specific hook - lead with the technique or the contrarian truth, never with biography",
+      "Fast credibility proof - the finished piece, on camera, supporting the promise",
+      "Personal reset - one line establishing why I am the one saying this",
+      "The useful process - taught with real work, in the order someone would do it",
+      "Boundary - what this does NOT mean, so the claim stays credible",
+      "Payoff - what is now faster, cheaper or less likely to fail",
+      "Positioning CTA - one aligned ask, and only if the resource actually exists"
+    ]
+  }
+}

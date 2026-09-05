@@ -1,0 +1,25 @@
+# YOUR REELS
+# ==========
+# Paste the URLs of reels you saved because you admired them. Not reels that
+# went viral - reels YOU would be proud to have made. Your taste is the input.
+#
+# Group them by creator with a "# creator:" line. Grouping matters: the whole
+# method depends on comparing two or three DIFFERENT creators, because the
+# contrast is what separates transferable structure from personal style.
+# One creator gives you an impression. Three gives you a grammar.
+#
+# How many: 8-12 per creator, 15-25 total. Fewer than 10 and the pacing
+# numbers are noise. More than ~30 and you are paying for redundancy.
+#
+# Any URL yt-dlp can reach works - Instagram, TikTok, YouTube Shorts.
+# Private and deleted posts will fail; that is fine, the rest still run.
+#
+# Delete these examples and add your own.
+
+# creator: Creator One
+# https://www.instagram.com/reel/XXXXXXXXXXX/
+# https://www.instagram.com/reel/YYYYYYYYYYY/
+
+# creator: Creator Two
+# https://www.tiktok.com/@someone/video/1234567890
+# https://www.youtube.com/shorts/abcdefghijk

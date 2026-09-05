@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node tools/validate.mjs:*)",
+      "Bash(node tools/doctor.mjs:*)",
+      "Bash(tools/corpus_fetch.sh:*)",
+      "Bash(bash tools/corpus_fetch.sh:*)",
+      "Read(//Users/**)",
+      "Bash(ffprobe:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)"
+    ]
+  }
+}

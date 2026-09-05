@@ -1,0 +1,60 @@
+{
+  "_note": "FICTIONAL EXAMPLE, matching corpus/example/corpus.json. Copy this to voice/voice.json and replace every field, or just run /voice-setup and let it interview you.",
+  "owner": {
+    "name": "Sam Ortega",
+    "handle": "@sambuilds",
+    "one_liner": "Furniture maker of six years who sells every piece built, and shows the failures as readily as the finished work."
+  },
+  "positioning": {
+    "intersection": ["real finished furniture", "technique that saves hours", "honest failure analysis"],
+    "should_feel_like": "Someone who actually builds and sells furniture, showing the exact techniques and judgment calls that make the work faster, with the finished piece always on camera.",
+    "should_not_become": [
+      "A tool-review account with no finished work behind it",
+      "A woodworking guru teaching systems I have not personally used for years",
+      "A satisfying-process account optimized for watch time over comprehension",
+      "An account that only shows successes"
+    ]
+  },
+  "proof": [
+    { "claim": "Built and sold 40+ commissioned pieces since 2019", "evidence_type": "analytics", "evidence_location": "invoices/2019-2025-summary.pdf", "verified": true },
+    { "claim": "The walnut credenza took 31 hours start to finish", "evidence_type": "screen_recording", "evidence_location": "logs/credenza-timesheet.png", "verified": true },
+    { "claim": "Shop-made marking gauge has held tolerance for 3 years", "evidence_type": "physical_artifact", "evidence_location": "shop bench, filmable any time", "verified": true },
+    { "claim": "Cut finishing time roughly in half with the revised schedule", "evidence_type": "none_yet", "evidence_location": "", "verified": false, "expires": "2025-06-01" }
+  ],
+  "audience": {
+    "who": "Hobbyists two to four years in, with a small shop and limited tooling, who have made a few pieces they were not happy with.",
+    "what_they_want": "To stop wasting weekends on work that comes out slightly wrong, without buying another expensive tool.",
+    "what_they_already_know": "Basic joinery names and how to use a router. They do not need 'what is a tenon' explained, and explaining it loses them immediately."
+  },
+  "voice_rules": {
+    "say": ["plain tool names", "actual measurements", "'here is where this fails'", "short declaratives"],
+    "never_say": [
+      "game-changer",
+      "level up",
+      "in this video",
+      "hey guys",
+      "any phrasing borrowed from a creator in my corpus",
+      "'secret' or 'nobody talks about' framing"
+    ],
+    "profanity": "none",
+    "humor": "dry",
+    "person": "mixed"
+  },
+  "constraints": {
+    "target_wpm": 232,
+    "typical_runtime_sec": 45,
+    "cta_style": "comment_keyword",
+    "resource_offer": "The cut list and finishing schedule as a one-page PDF."
+  },
+  "banned_claims": [
+    "Any income figure - I do not discuss what pieces sold for",
+    "Anything about the client whose commission I am filming",
+    "Anything implying I do this full time - I do not"
+  ],
+  "used_hooks": [
+    "You do not need a table saw to build this."
+  ],
+  "used_ctas": [
+    "Comment CUTLIST and I will send it."
+  ]
+}
