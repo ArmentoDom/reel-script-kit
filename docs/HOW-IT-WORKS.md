@@ -3,26 +3,29 @@
 ## Shape
 
 ```
-corpus/reels.txt          you list the reels you admire
+/corpus-build
       │
-      ▼  tools/corpus_fetch.sh        yt-dlp + ffmpeg
-corpus/raw/<creator>/<id>.mp4         (gitignored)
-corpus/frames/<id>/                   (gitignored)
-   f0001.jpg ... one per second
-   audio.m4a
-   meta.json  ← measured: duration, cuts, avg scene length
+      ├─ asks for reel links in the conversation
+      │        └──▶ corpus/reels.txt
       │
-      ▼  agent: corpus-analyst        reads every frame
-corpus/corpus.json  +  corpus/corpus.md
+      ├─ tools/chatgpt_message.sh   prompt + links ──▶ clipboard
       │
-      │        voice/voice.json  ← agent-free: /voice-setup interviews you
-      │              │
-      ▼              ▼
-         agent: reel-script
-              │
-              ▼
-   projects/<slug>/script.json + script.md
+      ├─ Chrome ──▶ chatgpt.com ──▶ paste, send
+      │        ChatGPT retrieves and watches every reel
+      │        └──▶ JSON block ──▶ corpus/corpus.json ──▶ corpus/corpus.md
+      │
+      └─ meanwhile: interviews the user ──▶ voice/voice.json
+                                    │
+                                    ▼
+                          /reel-script <slug> <idea>
+                                    │
+                                    ▼
+                 projects/<slug>/script.json + script.md
 ```
+
+The `--local` lane replaces the middle section with `tools/corpus_fetch.sh`
+(yt-dlp + ffmpeg → sampled frames) and the `corpus-analyst` agent reading those
+frames directly. Same two output files.
 
 ## The two inputs, and why they are separate
 
@@ -62,19 +65,29 @@ it. Clone and run.
 
 ## The two lanes
 
-**Local** (`yt-dlp` + `ffmpeg` present) — downloads and measures on your
-machine. Numbers come from the real files. Nothing is uploaded. Frames are
-sampled at one per second, capped at 45, scaled to 540px wide, which is legible
-enough to read burned-in captions while keeping the analysis affordable.
+**ChatGPT in Chrome (default).** The kit builds one long message — the analyst
+prompt plus the user's links — puts it on the clipboard, opens a fresh tab,
+pastes it, and polls for the result.
 
-**Browser** (`--browser`) — hands a structured prompt to ChatGPT, which
-retrieves and analyzes the videos. No installs. Also the fallback for
-login-gated reels the local lane cannot reach.
+Clipboard rather than typing, for a specific reason: Enter sends the message in
+ChatGPT, so typing a multi-line prompt keystroke-by-keystroke fires it off in
+fragments. `pbcopy` + `cmd+V` gets it in as one message.
 
-The known weakness of the browser lane, and the reason `/corpus-import` checks
-for it explicitly: a model that cannot retrieve a video may write a plausible
-entry for it anyway. The import step compares the entry count against the URLs
-you actually supplied.
+The result comes back through the code block's **copy button** into `pbpaste`,
+rather than by scraping page text, because a long JSON block gets truncated when
+scraped.
+
+This lane exists because it is the one that actually reaches Instagram and
+watches the videos. Its known weakness, checked for explicitly in step 7 of the
+command: a model that cannot retrieve a video will sometimes write a plausible
+entry for it anyway. Always compare the entry count against the URLs actually
+retrieved.
+
+**Local (`--local`).** `yt-dlp` + `ffmpeg`, everything on the user's machine,
+nothing uploaded. Frames are sampled at one per second, capped at 45, scaled to
+540px wide — legible enough to read burned-in captions while keeping the
+analysis affordable. The numbers here are measured from real files rather than
+estimated, so this lane is more accurate where it can reach the video at all.
 
 ## Scene detection
 

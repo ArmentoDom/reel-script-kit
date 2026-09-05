@@ -1,9 +1,12 @@
 ---
-description: "Interview me and build voice/voice.json — who I am, what I can prove, how I'm allowed to sound"
+description: "Redo the voice interview on its own (normally /corpus-build does this for you)"
 argument-hint: "(no arguments)"
 ---
 
 # Voice setup
+
+> Normally you do not run this. `/corpus-build` runs this interview while
+> ChatGPT is busy analyzing reels. Use it to redo or revise the answers later.
 
 Build `voice/voice.json` by **interviewing the user directly, in this
 conversation**. Do not spawn a subagent — a subagent cannot talk to them, and

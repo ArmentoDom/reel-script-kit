@@ -5,13 +5,13 @@ Your taste, made machine-readable.
 | Path | What it is | Committed? |
 |---|---|---|
 | `reels.txt` | The reel URLs you admire, grouped by creator. **You edit this.** | yes |
-| `raw/` | Downloaded videos | **no** — gitignored |
-| `frames/` | Sampled frames, audio and per-reel `meta.json` | **no** — gitignored |
+| `raw/` | Downloaded videos (`--local` lane only) | **no** — gitignored |
+| `frames/` | Sampled frames, audio, per-reel `meta.json` (`--local` only) | **no** — gitignored |
 | `corpus.json` | The structured analysis the script agent reads | yes |
 | `corpus.md` | The same analysis, readable, for you | yes |
 | `TEMPLATE_corpus.md` | Blank scaffold showing every section a corpus needs | yes |
 | `example/` | A small **fictional** worked example | yes |
-| `prompts/` | The ChatGPT prompt for the browser lane | yes |
+| `prompts/` | The analyst prompt `/corpus-build` sends to ChatGPT | yes |
 
 ## Why raw video is never committed
 

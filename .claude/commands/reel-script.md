@@ -8,16 +8,24 @@ argument-hint: "<video-slug> <idea, topic, link, or rough thought>"
 Arguments: `$ARGUMENTS` — the first token is the video slug; everything after
 it is the idea.
 
-## 1. Gate check — do not skip
+## 1. Gate check
 
-Both files are required. This agent's entire job is to sound like a specific
-person working from a specific taste, and without them it would be guessing.
+Both files are needed. This agent's whole job is to sound like a specific person
+working from a specific taste, and without them it would be guessing.
 
-- `voice/voice.json` missing → stop, tell them to run `/voice-setup`.
-- `corpus/corpus.json` missing → stop, tell them to run `/corpus-build`.
+- **`corpus/corpus.json` missing** → stop and point them at `/corpus-build`.
+  There is no way to improvise this one; it requires their reels.
+
+- **`voice/voice.json` missing** → do **not** bounce them to another command.
+  Run the interview from `/voice-setup` inline, right here, then carry on into
+  the script. Read that command file and follow it.
+
+  This should normally already exist, because `/corpus-build` runs the interview
+  while ChatGPT is working. If it is missing, something was interrupted — just
+  pick it up rather than making them start over.
 
 Run `node tools/validate.mjs all` and report any failures before going further.
-A malformed `voice.json` produces a subtly wrong script rather than an obvious
+A malformed `voice.json` produces a subtly wrong script rather than a loud
 error, which is worse.
 
 ## 2. Resolve the project

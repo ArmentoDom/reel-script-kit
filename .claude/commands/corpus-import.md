@@ -1,9 +1,12 @@
 ---
-description: "Import a corpus analysis produced in ChatGPT (browser lane) and validate it"
+description: "Import a corpus analysis you ran in ChatGPT yourself, and validate it"
 argument-hint: "[path to a saved .json file, or paste the JSON when asked]"
 ---
 
 # Import a corpus
+
+For when you ran the analysis in ChatGPT yourself (`/corpus-build --manual`)
+rather than letting `/corpus-build` drive it.
 
 Take the JSON block ChatGPT produced and turn it into a validated
 `corpus/corpus.json` plus a readable `corpus/corpus.md`.

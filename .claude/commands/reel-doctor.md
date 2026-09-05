@@ -22,9 +22,10 @@ Common situations:
 
 | What you see | What to say |
 |---|---|
-| No `voice.json` | Run `/voice-setup` — about five minutes, and the script agent cannot run without it. |
+| Nothing set up yet | Run `/corpus-build` — it collects the links, drives ChatGPT, and interviews them. |
 | No `corpus.json` | Run `/corpus-build`. |
-| `reels.txt` empty | `/corpus-build` will ask for the URLs directly; no need to edit the file first. |
-| Local tools missing | `brew install yt-dlp ffmpeg`, or use `/corpus-build --browser` which needs no installs. |
+| `corpus.json` but no `voice.json` | Setup was interrupted. Run the `/voice-setup` interview to finish it. |
+| `reels.txt` empty | `/corpus-build` asks for the URLs directly; no need to edit the file first. |
+| Local tools missing | Irrelevant by default — the ChatGPT lane needs no installs. Only matters for `/corpus-build --local`. |
 | Validation failures | Show the exact errors — they name the field and the problem. |
 | Everything green | Tell them to write something: `/reel-script <slug> <idea>`. |

@@ -20,3 +20,4 @@ Thumbs.db
 
 # Local-only overrides
 .claude/settings.local.json
+.chatgpt_message.txt

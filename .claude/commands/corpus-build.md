@@ -1,130 +1,204 @@
 ---
-description: "Build my reference corpus from the reels I admire — download, analyze, write corpus.json"
-argument-hint: "[--browser] [reel URLs, if I have not filled in reels.txt yet]"
+description: "Paste your reel links — this drives ChatGPT in Chrome to watch and analyze them, and sets up everything else"
+argument-hint: "[--local] [--manual] [reel URLs, if you have them handy]"
 ---
 
 # Build the corpus
 
-Turn the reels the user admires into a structured record of their taste.
+This is the **setup command**. When it finishes, the user should be able to run
+`/reel-script` and nothing else.
+
+It does three things: collects their reels, drives ChatGPT in Chrome to actually
+watch and analyze them, and interviews them about their own proof while that
+runs. Two commands total for the whole kit — keep it that way. Do not send them
+off to run something else in the middle.
 
 Arguments: `$ARGUMENTS`
 
-## 1. Collect the URLs
+- default → the ChatGPT-in-Chrome lane, automated
+- `--local` → local lane instead (yt-dlp + ffmpeg, see section 8)
+- `--manual` → build the prompt and hand it over, no browser automation
 
-Read `corpus/reels.txt`.
+## 1. Collect the reels
 
-**If it has no real URLs** (only the commented examples), ask for them right
-here in the conversation. Do not make them go and edit a file first — this is
-the moment they are ready to give you the list.
+Read `corpus/reels.txt`. If it holds only the commented placeholders, **ask for
+the URLs right here in the conversation.** Do not tell them to go edit a file.
 
-Ask for the reels they saved because they **admired** them — not reels that went
-viral, but ones they would be proud to have made. Their taste is the input.
+Ask for the reels they saved because they **admired** them — not what went
+viral, but what they would be proud to have made. Their taste is the input.
 
-Ask which creator each belongs to, and get a one-line `why_saved` in their own
-words for each creator. Capture that note *before* any analysis, so the analysis
-cannot rationalize itself after the fact.
+Get, briefly:
+- the URLs,
+- which creator each belongs to,
+- one line per creator on why they saved them, in their own words. Capture this
+  *before* any analysis, so the analysis cannot rationalize itself afterwards.
 
-Guidance to give them, briefly: 8–12 reels per creator, two or three creators,
-15–25 total. Explain why more than one creator matters — the contrast between
-creators is what separates transferable structure from personal style. One
-creator gives you an impression; three give you a grammar.
+Tell them, in one short line each: 8–12 reels per creator, two or three
+creators, 15–25 total — and that more than one creator matters because the
+contrast between creators is what separates transferable structure from personal
+style.
 
-Write everything into `corpus/reels.txt` in the existing format
-(`# creator: Name` group headers, one URL per line), preserving the header
-comments.
+If they paste a big unlabeled block of links, do not interrogate them line by
+line. Group what you can from the URLs themselves and ask one question to
+confirm.
 
-## 2. Pick a lane
+Write it all into `corpus/reels.txt` in the existing format (`# creator: Name`
+headers, one URL per line), keeping the header comments intact.
 
-Run `node tools/doctor.mjs` and look at the toolchain.
-
-**Local lane** (default when `yt-dlp`, `ffmpeg` and `ffprobe` are all present):
-everything runs on this machine, nothing is uploaded, and the measured numbers
-come from the actual video files.
-
-**Browser lane** (`--browser`, or when the local tools are missing, or for
-reels that are login-gated): hand the ChatGPT prompt over instead. Skip to
-section 5.
-
-If the local tools are missing, offer `brew install yt-dlp ffmpeg` (a one-time
-install, and the better path), but do not insist — the browser lane is a real
-alternative, not a fallback for people who did something wrong.
-
-## 3. Download and prepare
+## 2. Build the message
 
 ```bash
-tools/corpus_fetch.sh
+tools/chatgpt_message.sh
 ```
 
-This downloads each reel, measures duration and hard cuts, samples a frame per
-second, and extracts audio — writing `corpus/frames/<id>/meta.json` for each.
+This concatenates the analyst prompt with their reel list and puts the whole
+thing on the clipboard.
 
-Report what came back. Some URLs will fail — private, deleted, or login-gated —
-and that is normal and not a problem: analysis runs on whatever downloaded.
-If **more than half** fail, stop and say so rather than building a corpus on
-four reels; suggest the browser lane for the ones that would not come down.
+**Clipboard, not typing.** Typing into ChatGPT keystroke-by-keystroke does not
+work here: Enter sends the message, so a multi-line prompt fires off in
+fragments. Paste it as one message.
 
-Downloads land in `corpus/raw/`, which is gitignored. Mention this once: those
-are other people's copyrighted videos, kept locally to study and never
-committed or published. The analysis is what gets committed, because the
-analysis is theirs.
+Check the reported URL count matches what they gave you. If it says 0, the write
+in step 1 did not land — fix that before going further.
 
-## 4. Analyze
+## 3. Open ChatGPT
 
-Spawn the Agent tool with `subagent_type: "corpus-analyst"`. Tell it:
+```
+tabs_context_mcp { createIfEmpty: true }
+tabs_create_mcp                       ← always a fresh tab, never reuse theirs
+navigate → https://chatgpt.com/
+```
 
-- the prepared reel ids and where their frames and `meta.json` live,
-- the creator grouping and each `why_saved` note verbatim,
-- to write `corpus/corpus.json` and `corpus/corpus.md`,
-- to keep per-creator aggregates separate and never average two creators'
-  pacing into one number,
-- to validate its own output before finishing.
+Screenshot. If they are not signed in, stop and ask them to sign in, then
+continue — do not attempt to log in on their behalf.
 
-This reads a lot of frames and takes a few minutes. Say so before starting.
+Prefer a model that can browse and handle video. If a model picker is visible
+and set to something basic, switch it to their most capable available model and
+say which one you picked.
 
-Then skip to section 6.
+## 4. Paste and send
 
-## 5. Browser lane
+1. `find` the message composer, click it.
+2. `computer` action `key`, text `cmd+v`.
+3. **Screenshot and confirm the text actually landed** before sending. A failed
+   paste that gets sent produces a confidently wrong conversation, and it is
+   easy to miss.
+4. Send with `key` → `Return`.
 
-Two ways to run it, user's choice:
+If the paste did not land, try clicking directly into the composer and pasting
+again. If it still fails after two attempts, fall back to `--manual` (section 9)
+rather than retrying indefinitely.
 
-**Hands-off** — if the `claude-in-chrome` tools are available and the user
-wants it driven: open a new tab on ChatGPT, paste the prompt from
-`corpus/prompts/chatgpt-corpus-analyst.md`, paste the URLs when it asks, let it
-work, and collect the JSON block it returns. Watch for it stalling on a
-download it cannot do, and do not let it invent an entry for a reel it never
-retrieved — that is the specific failure to check for.
+## 5. While it works — interview them
 
-**Manual** — print the prompt file's location, tell them to paste it into
-ChatGPT along with their URLs, and to bring back the JSON block. Then run
-`/corpus-import`.
+The analysis takes a while: it is retrieving and watching 15–25 videos. Use that
+time instead of making them watch a spinner.
 
-Either way the result goes to `corpus/corpus.json`, then:
+Tell them what is happening, then run the **voice interview** from
+`/voice-setup` — read that command file and follow it. Produce
+`voice/voice.json`.
+
+This is why they never have to run `/voice-setup` separately. Cover the same
+ground: identity, positioning (including the accounts they would hate to be
+mistaken for), **proof** — the longest and most important part — audience, voice
+rules, constraints, banned claims, and anything already published.
+
+Be rigorous about `proof[]`. It is a closed list, and the script agent may only
+make claims that trace into it. "I think it was around 10,000" is
+`verified: false`. If they have no results yet, `evidence_type: "none_yet"` is a
+legitimate answer and worth saying plainly.
+
+Check back on the ChatGPT tab between batches of questions.
+
+## 6. Collect the result
+
+Poll the tab — screenshot or `get_page_text` — until the reply is complete.
+Space the checks out; this can run for several minutes. Do not spam it.
+
+Watch for:
+- **it asking a question instead of working** → answer it and let it continue,
+- **it stopping partway** → tell it to continue,
+- **a "continue generating" button** → click it,
+- **it claiming it cannot download a video** → note which, and carry on. Missing
+  reels are fine. Invented ones are not.
+
+When the JSON block is there, get it out via **the code block's copy button** —
+click it, then:
+
+```bash
+pbpaste > corpus/corpus.json
+```
+
+That avoids the truncation you get from scraping page text. If there is no copy
+button, fall back to `get_page_text` and extract the final fenced block, then
+check the JSON is complete rather than cut off mid-structure.
+
+## 7. Validate, check, and write corpus.md
 
 ```bash
 node tools/validate.mjs corpus
 ```
 
-If it fails, paste the errors back to ChatGPT — it repairs its own output well
-against specific reported problems.
+If it fails, paste the exact errors back into the ChatGPT tab and ask for a
+corrected full block. It repairs its own output well against specific errors.
+Two rounds of that; if it is still failing, fix the remaining fields yourself
+and say what you changed.
 
-Then produce `corpus/corpus.md` from the JSON, following the section order in
-`corpus/TEMPLATE_corpus.md`.
+Then read the content, because a valid shape can still be wrong. Check:
 
-## 6. Report
+- **Invented reels.** Does the entry count match the URLs actually retrieved?
+  A model that could not fetch a video sometimes writes a plausible entry
+  anyway. This is the failure to look for, every time.
+- **Averaged creators.** Is `aggregate.per_creator` populated with genuinely
+  different numbers, or were two creators collapsed into one house style?
+- **Lessons that are skin, not grammar.** Any `lesson` that cannot be stated
+  without naming that creator's topic needs rewriting.
+- **Flattering engine risks.** A soft `risk_if_copied_wholesale` is useless.
+- **Suspiciously precise numbers** from what was really an estimate.
 
-Show them:
+Fix what you can, flag what needs their judgment.
 
-- how many reels made it in, and any that were excluded and why,
-- the per-creator pacing contrast — this is the headline finding, lead with it,
-- the visual modes that were identified,
-- the `risk_if_copied_wholesale` line for each engine, quoted directly. These
-  are the most useful sentences in the whole document and the easiest to skim
-  past.
-- the synthesized positioning statement and script formula.
+Then write **`corpus/corpus.md`** from the JSON, following the section order in
+`corpus/TEMPLATE_corpus.md` — tables for numbers, prose for judgment. Do not
+skip this; it is the file they will actually read.
 
-Then tell them plainly: **read `corpus/corpus.md` and edit it.** The machine
-measured; they judge. Their disagreements with the analysis are signal, and a
-corpus they have argued with is worth more than one they accepted.
+Close the tab you opened.
 
-Next step: `/voice-setup` if `voice/voice.json` does not exist yet, otherwise
-`/reel-script <slug> <idea>`.
+## 8. `--local` lane
+
+If they passed `--local`, or ChatGPT is unavailable and `yt-dlp` + `ffmpeg` are
+installed:
+
+```bash
+tools/corpus_fetch.sh
+```
+
+Downloads, measures duration and hard cuts, samples a frame per second. Then
+spawn the Agent tool with `subagent_type: "corpus-analyst"`, giving it the
+prepared ids, the creator grouping and each `why_saved` note verbatim. Still run
+the voice interview from section 5. Then continue from section 7.
+
+Note that downloads land in `corpus/raw/`, which is gitignored: other people's
+videos stay local, and the analysis is what gets committed.
+
+## 9. `--manual` lane
+
+Run `tools/chatgpt_message.sh`, tell them it is on their clipboard, and to paste
+it into ChatGPT and bring back the JSON block. Then run `/corpus-import`. Still
+do the voice interview.
+
+## 10. Report
+
+Lead with the **per-creator pacing contrast** — it is the headline finding.
+Then the visual modes, and quote each engine's `risk_if_copied_wholesale`
+directly; those are the most useful sentences in the document and the easiest to
+skim past.
+
+Say plainly what was excluded and why.
+
+Then two things:
+
+> Read `corpus/corpus.md` and edit it. The machine measured; you judge. Where
+> you disagree, write it in — that disagreement is your taste.
+
+> Everything is set up. Next: `/reel-script <slug> <your idea>`

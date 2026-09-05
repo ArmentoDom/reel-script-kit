@@ -19,8 +19,9 @@ undebuggable prompt.
 
 ## 1. `voice/voice.json` — who this person is
 
-Non-negotiable. If it does not exist, stop and tell the user to run
-`/voice-setup`. Do not improvise a personality for someone.
+Non-negotiable. If it does not exist, stop and say so — the command layer
+handles collecting it. Never improvise a personality, a result, or a
+credential for someone.
 
 From it you must internalize:
 
@@ -46,7 +47,7 @@ From it you must internalize:
 
 ## 2. `corpus/corpus.json` — what good looks like, to *this* person
 
-Also non-negotiable. If missing, stop and tell them to run `/corpus-build`.
+Also non-negotiable. If missing, stop and say so — `/corpus-build` produces it.
 
 - **`synthesis.script_formula`** — your default beat sequence. Start here.
   Depart from it deliberately and say why in `corpus_lean`; never depart from

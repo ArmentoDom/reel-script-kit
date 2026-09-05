@@ -65,37 +65,43 @@ cd reel-script-kit
 claude
 ```
 
-Then, in Claude Code:
+Then two commands. That is the whole kit.
 
 ```
-/reel-doctor      what is set up, what is missing, what to do next
-/voice-setup      a 5-minute interview - who you are, what you can prove
-/corpus-build     hand it your reel URLs; it downloads and analyzes them
-/reel-script my-first-video  the idea I cannot stop thinking about
+/corpus-build                 paste your reel links
+/reel-script <slug> <idea>    write the script
 ```
 
-`/corpus-build` asks for your URLs right in the conversation. You do not have to
-edit a file first.
+**`/corpus-build`** asks for your links in the conversation, then opens Chrome,
+drives ChatGPT to actually retrieve and watch every reel, and brings the
+analysis back. While that runs it interviews you about your own proof, so
+nothing is left to set up afterwards.
 
-**Optional, and worth it:**
+**`/reel-script`** writes the script.
 
-```bash
-brew install yt-dlp ffmpeg
-```
-
-That enables the local lane — everything runs on your machine and the numbers
-come from the actual video files. Without it, `/corpus-build --browser` drives
-ChatGPT instead and needs no installs at all.
+Nothing to install. No files to edit first. No API keys.
 
 ## Commands
 
-| Command | What it does |
+| Command | |
 |---|---|
-| `/voice-setup` | Interviews you. Writes `voice/voice.json`. |
-| `/corpus-build` | Takes your reel URLs, downloads, analyzes, writes `corpus/corpus.json` + `corpus.md`. |
-| `/corpus-import` | Imports an analysis produced in ChatGPT, and checks it for invented entries. |
+| `/corpus-build` | **Setup.** Your links → ChatGPT watches them → `corpus.json` + `voice.json`. |
 | `/reel-script` | Writes a script. Words only. |
-| `/reel-doctor` | Health check and next step. |
+
+Three more exist for when something goes sideways, and most people never need
+them: `/reel-doctor` (health check), `/voice-setup` (redo the interview alone),
+`/corpus-import` (bring in an analysis you ran in ChatGPT yourself).
+
+### Why ChatGPT does the watching
+
+It is the one path that reliably reaches Instagram and actually watches the
+videos rather than guessing from captions and thumbnails. The kit drives it for
+you — you paste links, it does the rest.
+
+If you would rather keep everything on your own machine,
+`brew install yt-dlp ffmpeg` and run `/corpus-build --local`: it downloads each
+reel, measures duration and cuts with ffmpeg, and reads the frames directly.
+Same output, nothing uploaded.
 
 ## What you end up with
 

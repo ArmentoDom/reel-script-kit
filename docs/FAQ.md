@@ -1,52 +1,72 @@
 # FAQ
 
-### Most of my reels failed to download.
+### Do I need to install anything?
 
-Private accounts, deleted posts, and login-gated content cannot be fetched.
-Normal, and not a problem if it is a few — analysis runs on whatever came down.
+No. The default path drives ChatGPT in your Chrome — no installs, no API keys.
+You need to be signed in to ChatGPT, ideally on a model that can browse.
 
-If most of them failed, use `/corpus-build --browser`, which goes through
-ChatGPT and can reach more. Do not build a corpus on four reels; the numbers
-will not mean anything.
+`brew install yt-dlp ffmpeg` is optional and only enables `/corpus-build --local`.
 
-### Do I have to install yt-dlp and ffmpeg?
+### Why ChatGPT instead of doing it locally?
 
-No. `/corpus-build --browser` needs nothing installed.
+Because it is the path that reliably reaches Instagram and actually watches the
+videos, rather than inferring structure from captions and thumbnails. The kit
+drives it for you: you paste links, it does the rest.
 
-They are worth installing, though: the local lane measures the real video files
-rather than relying on a model's estimate, and nothing leaves your machine.
+The `--local` lane exists if you would rather keep everything on your machine.
+Where it can reach a video at all its numbers are better, because they come from
+measuring the real file instead of a model's estimate.
 
-```bash
-brew install yt-dlp ffmpeg
-```
+### ChatGPT could not fetch some of my reels.
 
-### Is downloading these reels okay?
+Normal. Private accounts and deleted posts cannot be retrieved, and the analysis
+runs on whatever came back.
 
-You are fetching publicly posted videos to study privately — the same thing you
-do when you rewatch something to work out how it was made.
+If most failed, check you are signed in and on a browsing-capable model, then
+run `/corpus-build` again. Do not build a corpus on four reels; the numbers will
+not mean anything.
 
-The kit takes this seriously in two ways: `corpus/raw/` and `corpus/frames/` are
-gitignored so footage is never committed or published, and the analysis records
-structure, pacing and technique rather than reproducing anyone's script. Your
-analysis is your own work. Their video stays theirs, and stays on your disk.
+Watch for the opposite failure too: a model that could not fetch a video
+sometimes writes a plausible entry for it anyway. `/corpus-build` checks the
+entry count against what was actually retrieved, and it is worth a glance
+yourself.
+
+### Can I run the ChatGPT part myself?
+
+Yes. `/corpus-build --manual` puts the prompt and your links on your clipboard.
+Paste it into ChatGPT wherever you like, then bring the JSON block back with
+`/corpus-import`.
+
+### Is analyzing these reels okay?
+
+You are studying publicly posted videos to learn how they were made — the same
+thing you do when you rewatch something to work out how it was put together.
+
+The kit keeps that boundary in two ways. On the `--local` lane, `corpus/raw/`
+and `corpus/frames/` are gitignored, so footage is never committed or published
+and stays on your disk. And the analysis records structure, pacing and technique
+rather than reproducing anyone's script — quoting is limited to a short phrase,
+and only where the exact wording is the thing being analyzed.
+
+Your analysis is your own work. Their videos stay theirs.
 
 ### The analysis says something I disagree with.
 
 Then it is wrong and you are right. Edit `corpus/corpus.md`.
 
-The machine measured what it could see; you know why you saved those reels.
-Your disagreement is the most valuable thing you can add, and a corpus you have
+The machine measured what it could see; you know why you saved those reels. Your
+disagreement is the most valuable thing you can add, and a corpus you have
 argued with is worth several times one you accepted unread.
 
 ### I have no results yet. Can I use this?
 
-Yes, and it is worth being straight in `/voice-setup` about it. Record claims
+Yes, and it is worth being straight about it during the interview. Record claims
 with `evidence_type: "none_yet"` and the agent treats them as hypotheses rather
 than facts.
 
 Your early scripts will lean on teaching and honest process instead of results.
-That is a real position — often a more durable one than borrowed authority —
-and the agent will not fabricate credentials to paper over it.
+That is a real position — often a more durable one than borrowed authority — and
+the agent will not fabricate credentials to paper over it.
 
 ### The script has [NEEDS VERIFICATION] in it.
 
@@ -65,13 +85,20 @@ With one creator there is no way to tell structure from personality — everythi
 they do looks essential. A second creator separates the two immediately: what
 both do is grammar, what only one does is style.
 
+### Why did it interview me in the middle of building the corpus?
+
+Because ChatGPT is spending those minutes retrieving and watching your reels,
+and that time is otherwise dead.
+
+It also means there is no separate setup command: when `/corpus-build` finishes,
+both files exist and you can go straight to `/reel-script`.
+
 ### How often should I rebuild the corpus?
 
 When your taste moves. After twenty or thirty published videos it will have.
 
-Add newer reels to `corpus/reels.txt`, run `/corpus-build` again, and bump
-`corpus_version`. Keep the old `corpus.md` — the diff is one of the more
-interesting things this produces.
+Run `/corpus-build` again with newer reels and bump `corpus_version`. Keep the
+old `corpus.md` — the diff is one of the more interesting things this produces.
 
 ### Validation is failing and I do not understand the error.
 

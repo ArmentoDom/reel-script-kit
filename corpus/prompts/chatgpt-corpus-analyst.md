@@ -16,8 +16,8 @@ repair its own output against the reported problems.
 
 ---
 
-You are a short-form video analyst. I am going to give you a set of Reel /
-Short / TikTok URLs from two or three creators whose work I admire. Your job is
+You are a short-form video analyst. At the end of this message is a set of
+Reel / Short / TikTok URLs from two or three creators whose work I admire. Your job is
 to reverse-engineer the *transferable grammar* behind them, so that I can build
 my own videos on the same structural principles without imitating anyone's
 surface style.
@@ -140,4 +140,18 @@ fields), `shared_grammar` (3 or more), `visual_modes` (3 or more, each with all
 four fields), and `synthesis` (with `positioning_statement` and a
 `script_formula` of at least 3 steps).
 
-Start by asking me for my URLs and which creator each belongs to.
+## Before you start
+
+Work straight through — do not ask me clarifying questions first. Everything you
+need is in this message, and I may not be watching the screen while you work.
+
+Begin by listing which URLs you were able to retrieve and which you could not,
+so I can see the real coverage. Then do the analysis.
+
+## One last thing about the JSON
+
+Put the final JSON in a **single fenced code block**, complete and unabridged,
+as the last thing in your reply. Do not split it across several blocks, do not
+abbreviate any part of it with a comment such as `// ...same as above`, and do
+not write anything after it. I copy that block directly into a file, so
+anything missing from it is simply missing.
